@@ -1,4 +1,6 @@
-using System.Collections;
+
+
+ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Unity.VisualScripting;
@@ -28,13 +30,11 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * boktoSpeed);
+        transform.Translate(Vector3.forward * boktoSpeed*Time.deltaTime);
         SwipeRL();
 
       
     }
-   
-    
 
     void SwipeRL()
     {
@@ -64,7 +64,7 @@ public class Movement : MonoBehaviour
         {
             if (startPos.x - lastPos.x < 0)
             {
-                playeR.transform.eulerAngles = new Vector3(boktoSpeed, transform.eulerAngles.y+90f, 0);
+                playeR.transform.eulerAngles = new Vector3(boktoSpeed*Time.deltaTime, transform.eulerAngles.y+90f, 0);
                 //transform.Rotate(new Vector3(0f, 90f, 0f));
                 //bokTo.velocity = new Vector3(boktoSpeed, bokTo.velocity.y, 0);
 
@@ -73,7 +73,7 @@ public class Movement : MonoBehaviour
             }
             else
             {
-                playeR.transform.eulerAngles = new Vector3(boktoSpeed, transform.eulerAngles.y+ -90f, 0);
+                playeR.transform.eulerAngles = new Vector3(boktoSpeed*Time.deltaTime, transform.eulerAngles.y+ -90f, 0);
                 //bokTo.velocity = new Vector3(-boktoSpeed, bokTo.velocity.y, 0);
                 Debug.Log("Swipe Left");
             }
