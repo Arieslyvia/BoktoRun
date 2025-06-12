@@ -13,8 +13,8 @@ public class Movement : MonoBehaviour
     public float boktoSpeed;
     public float rotationSpeed;
     public Vector3 jump;
-    public float jumpF;
-   //bool isJumping;
+
+    bool isJumping;
 
     Vector3 startPos;
     Vector3 lastPos;
@@ -30,7 +30,8 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * boktoSpeed*Time.deltaTime);
+        var x = Vector3.forward + Vector3.up * bokTo.velocity.y;
+        transform.Translate(x * boktoSpeed*Time.deltaTime);
         SwipeRL();
 
       
@@ -67,7 +68,7 @@ public class Movement : MonoBehaviour
                 playeR.transform.eulerAngles = new Vector3(boktoSpeed*Time.deltaTime, transform.eulerAngles.y+90f, 0);
                 //transform.Rotate(new Vector3(0f, 90f, 0f));
                 //bokTo.velocity = new Vector3(boktoSpeed, bokTo.velocity.y, 0);
-
+                playeR.SetFloat("Running", Mathf.Abs(xDisplace));
                 Debug.Log("Swipe Right");
 
             }
@@ -76,6 +77,7 @@ public class Movement : MonoBehaviour
                 playeR.transform.eulerAngles = new Vector3(boktoSpeed*Time.deltaTime, transform.eulerAngles.y+ -90f, 0);
                 //bokTo.velocity = new Vector3(-boktoSpeed, bokTo.velocity.y, 0);
                 Debug.Log("Swipe Left");
+                playeR.SetFloat("Running", Mathf.Abs(xDisplace));
             }
         }
         else
@@ -83,29 +85,31 @@ public class Movement : MonoBehaviour
             if (startPos.y - lastPos.y < 0)
             {
                 Debug.Log("up");
+                playeR.SetBool("Jumping", true);
                 bokTo.AddForce(jump, ForceMode.Impulse);
+               
             }
             else
             {
                 Debug.Log("down");
-                
+                playeR.SetTrigger("Slide");
 
             }
         }
 
     }
-    
-    /*private void OnCollisionEnter(Collision collision)
+
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("ground"))
         {
             isJumping = false;
-            //bokTo.SetBool("Jump", false);
+            playeR.SetBool("Jumping", false);
 
         }
 
     }
-*/
+
 
 }
 

@@ -6,12 +6,14 @@ public class Spawn : MonoBehaviour
 {
     public GameObject tileToSpawn;
     public GameObject referenceObj;
-    public float timeOffset;
-    public float distanceBtwTiles;
-    public float randomValue;
+    public float timeOffset = 0.4f;
+    public float distanceBtwTiles = 19f;
+    public float randomValue = 0.5f;
     private Vector3 previousTilePosition;
     float startTime;
     Vector3 direction, mainDirection = new Vector3(0, 0, 1), otherDirection = new Vector3(1, 0, 0);
+    private Queue<GameObject>spawnedTiles = new Queue<GameObject>();
+    public int maxTiles = 10;
 
     private void Start()
     {
@@ -26,16 +28,32 @@ public class Spawn : MonoBehaviour
         {
             if (Random.value < randomValue)
                 direction = mainDirection;
+            else
+            {
+                Vector3 temp = direction;
+                direction = otherDirection;
+                mainDirection = direction;
+                otherDirection = temp;
+               
+            }
+            Vector3 spawnPos = previousTilePosition + distanceBtwTiles * direction;
+
+            startTime = Time.time;
+            Instantiate(tileToSpawn, spawnPos, Quaternion.Euler(0, 0, 0));
+            previousTilePosition = spawnPos;
+
+            // spawnedTiles.Enqueue(newTile);
+            if(spawnedTiles.Count > maxTiles)
+            {
+              var oldTiles = spawnedTiles.Dequeue();
+                Destroy(oldTiles);
+            }
         }
-        else
-        {
-            Vector3 temp = direction;
-            direction = otherDirection;
-            otherDirection = temp;
-        }
-        Vector3 spawnPos = previousTilePosition + distanceBtwTiles * direction;
-        startTime = Time.time;
-        Instantiate(tileToSpawn, spawnPos, Quaternion.Euler(0,0,0));
-        previousTilePosition = spawnPos;
+        
+    }
+    void DestroyOldTiles()
+    {
+        Destroy(tileToSpawn);
+
     }
 }
