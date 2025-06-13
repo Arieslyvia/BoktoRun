@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -19,6 +20,7 @@ public class Movement : MonoBehaviour
     Vector3 startPos;
     Vector3 lastPos;
 
+    public GameObject currentPath;
 
 
     private void Start()
@@ -65,38 +67,42 @@ public class Movement : MonoBehaviour
         {
             if (startPos.x - lastPos.x < 0)
             {
-                playeR.transform.eulerAngles = new Vector3(boktoSpeed*Time.deltaTime, transform.eulerAngles.y+90f, 0);
+                playeR.transform.eulerAngles = new Vector3(boktoSpeed * Time.deltaTime, transform.eulerAngles.y + 90f, 0);
                 //transform.Rotate(new Vector3(0f, 90f, 0f));
                 //bokTo.velocity = new Vector3(boktoSpeed, bokTo.velocity.y, 0);
-                playeR.SetFloat("Running", Mathf.Abs(xDisplace));
+                playeR.SetBool("Running", true);
                 Debug.Log("Swipe Right");
 
             }
             else
             {
-                playeR.transform.eulerAngles = new Vector3(boktoSpeed*Time.deltaTime, transform.eulerAngles.y+ -90f, 0);
-                //bokTo.velocity = new Vector3(-boktoSpeed, bokTo.velocity.y, 0);
+                playeR.transform.eulerAngles = new Vector3(boktoSpeed * Time.deltaTime, transform.eulerAngles.y + -90f, 0);
+                //transform.Rotate(new Vector3(0f, 90f, 0f));
+                //bokTo.velocity = new Vector3(boktoSpeed, bokTo.velocity.y, 0);
+                playeR.SetBool("Running", true);
                 Debug.Log("Swipe Left");
-                playeR.SetFloat("Running", Mathf.Abs(xDisplace));
+
             }
         }
         else
         {
-            if (startPos.y - lastPos.y < 0)
+            if(startPos.y - lastPos.y < 0)
             {
                 Debug.Log("up");
+                isJumping = true;
                 playeR.SetBool("Jumping", true);
                 bokTo.AddForce(jump, ForceMode.Impulse);
-               
+
             }
             else
             {
                 Debug.Log("down");
-                playeR.SetTrigger("Slide");
+                playeR.SetBool("Slide", true);
 
             }
-        }
 
+        }
+           
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -105,9 +111,12 @@ public class Movement : MonoBehaviour
         {
             isJumping = false;
             playeR.SetBool("Jumping", false);
+            playeR.SetBool("Slide",false);
 
         }
+        currentPath = collision.transform.parent.parent.gameObject;
 
+        Debug.Log(currentPath);
     }
 
 

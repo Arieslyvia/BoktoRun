@@ -1,8 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EndlessManager : MonoBehaviour
+public class EndlessPathManager: MonoBehaviour
 {
     public Transform player;
     public List<GameObject> tilePrefabs; // Straight, Left, Right

@@ -12,8 +12,7 @@ public class Spawn : MonoBehaviour
     private Vector3 previousTilePosition;
     float startTime;
     Vector3 direction, mainDirection = new Vector3(0, 0, 1), otherDirection = new Vector3(1, 0, 0);
-    private Queue<GameObject>spawnedTiles = new Queue<GameObject>();
-    public int maxTiles = 10;
+   
 
     private void Start()
     {
@@ -41,19 +40,7 @@ public class Spawn : MonoBehaviour
             startTime = Time.time;
             Instantiate(tileToSpawn, spawnPos, Quaternion.Euler(0, 0, 0));
             previousTilePosition = spawnPos;
-
-            // spawnedTiles.Enqueue(newTile);
-            if(spawnedTiles.Count > maxTiles)
-            {
-              var oldTiles = spawnedTiles.Dequeue();
-                Destroy(oldTiles);
-            }
         }
         
-    }
-    void DestroyOldTiles()
-    {
-        Destroy(tileToSpawn);
-
     }
 }
