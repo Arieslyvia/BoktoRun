@@ -70,16 +70,16 @@ public class Movement : MonoBehaviour
                 playeR.transform.eulerAngles = new Vector3(boktoSpeed * Time.deltaTime, transform.eulerAngles.y + 90f, 0);
                 //transform.Rotate(new Vector3(0f, 90f, 0f));
                 //bokTo.velocity = new Vector3(boktoSpeed, bokTo.velocity.y, 0);
-                playeR.SetBool("Running", true);
+                playeR.SetFloat("Running", Mathf.Abs(xDisplace));
                 Debug.Log("Swipe Right");
 
             }
             else
             {
-                playeR.transform.eulerAngles = new Vector3(boktoSpeed * Time.deltaTime, transform.eulerAngles.y + -90f, 0);
+                playeR.transform.eulerAngles = new Vector3(boktoSpeed * Time.deltaTime, transform.eulerAngles.y -90f, 0);
                 //transform.Rotate(new Vector3(0f, 90f, 0f));
                 //bokTo.velocity = new Vector3(boktoSpeed, bokTo.velocity.y, 0);
-                playeR.SetBool("Running", true);
+                playeR.SetFloat("Running", Mathf.Abs (xDisplace));
                 Debug.Log("Swipe Left");
 
             }
@@ -89,7 +89,7 @@ public class Movement : MonoBehaviour
             if(startPos.y - lastPos.y < 0)
             {
                 Debug.Log("up");
-                isJumping = true;
+                //isJumping = true;
                 playeR.SetBool("Jumping", true);
                 bokTo.AddForce(jump, ForceMode.Impulse);
 
@@ -97,7 +97,7 @@ public class Movement : MonoBehaviour
             else
             {
                 Debug.Log("down");
-                playeR.SetBool("Slide", true);
+                playeR.SetTrigger("Slide");
 
             }
 
@@ -109,9 +109,9 @@ public class Movement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("ground"))
         {
-            isJumping = false;
-            playeR.SetBool("Jumping", false);
-            playeR.SetBool("Slide",false);
+            //isJumping = false;
+            //playeR.SetBool("Jumping", false);
+            
 
         }
         currentPath = collision.transform.parent.parent.gameObject;
