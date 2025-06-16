@@ -15,7 +15,7 @@ public class Movement : MonoBehaviour
     public float rotationSpeed;
     public Vector3 jump;
 
-    bool isJumping;
+    //bool isJumping;
 
     Vector3 startPos;
     Vector3 lastPos;
@@ -67,7 +67,9 @@ public class Movement : MonoBehaviour
         {
             if (startPos.x - lastPos.x < 0)
             {
-                playeR.transform.eulerAngles = new Vector3(boktoSpeed * Time.deltaTime, transform.eulerAngles.y + 90f, 0);
+                playeR.transform.Rotate(new Vector3(0, 90, 0));
+
+                //playeR.transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + 90f, 0);
                 //transform.Rotate(new Vector3(0f, 90f, 0f));
                 //bokTo.velocity = new Vector3(boktoSpeed, bokTo.velocity.y, 0);
                 playeR.SetFloat("Running", Mathf.Abs(xDisplace));
@@ -76,7 +78,8 @@ public class Movement : MonoBehaviour
             }
             else
             {
-                playeR.transform.eulerAngles = new Vector3(boktoSpeed * Time.deltaTime, transform.eulerAngles.y -90f, 0);
+                playeR.transform.Rotate(new Vector3(0, -90, 0));
+                //playeR.transform.eulerAngles = new Vector3(0, transform.eulerAngles.y -90f, 0);
                 //transform.Rotate(new Vector3(0f, 90f, 0f));
                 //bokTo.velocity = new Vector3(boktoSpeed, bokTo.velocity.y, 0);
                 playeR.SetFloat("Running", Mathf.Abs (xDisplace));
@@ -98,7 +101,7 @@ public class Movement : MonoBehaviour
             {
                 Debug.Log("down");
                 playeR.SetTrigger("Slide");
-
+                playeR.SetTrigger("Jumping");
             }
 
         }
@@ -109,14 +112,17 @@ public class Movement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("ground"))
         {
-            //isJumping = false;
-            //playeR.SetBool("Jumping", false);
-            
+
+            // isJumping = false;
+            currentPath = collision.transform.parent.parent.gameObject;
+
+            Debug.Log(currentPath);
+
 
         }
-        currentPath = collision.transform.parent.parent.gameObject;
+       /* currentPath = collision.transform.parent.parent.gameObject;
 
-        Debug.Log(currentPath);
+        Debug.Log(currentPath);*/
     }
 
 

@@ -41,6 +41,7 @@ public class PathSpawner : MonoBehaviour
         paths[nextIndex].transform.position = spawnPoint.transform.position;
 
         runningPath = player.currentPath;
+
         spawnPoint = paths[nextIndex].transform.GetChild(1).gameObject;
 
     }
