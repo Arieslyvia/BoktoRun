@@ -16,7 +16,7 @@ public class PathSpawner : MonoBehaviour
 
     private void Start()
     {
-        //paths[1].transform.position = spawnPoint.transform.position;
+       //paths[4].transform.position = spawnPoint.transform.position;
     }
 
     private void Update()
@@ -35,13 +35,26 @@ public class PathSpawner : MonoBehaviour
             nextIndex = Random.Range(0, paths.Count);
 
         } while (nextIndex == currentIndex);
-        
+
         currentIndex = nextIndex;
-        Debug.Log(nextIndex);
+    
         paths[nextIndex].transform.position = spawnPoint.transform.position;
 
         runningPath = player.currentPath;
+        
         spawnPoint = paths[nextIndex].transform.GetChild(1).gameObject;
+
+        
+
+        var flowerHolder = runningPath.transform.GetChild(2);
+
+        for (int i = 0; i <flowerHolder.childCount; i ++)
+        {
+
+            flowerHolder.GetChild(i).gameObject.SetActive(true);
+            
+        }
+
 
     }
 }
