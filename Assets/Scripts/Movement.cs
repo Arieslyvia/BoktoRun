@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Movement : MonoBehaviour
 {
-
+    [SerializeField] private Scores playerScore;
     bool Alive = true;
     public Animator playeR;
     public Rigidbody bokTo;
@@ -34,8 +34,11 @@ public class Movement : MonoBehaviour
     {
 
        if (!Alive) return;
-        Vector3 x = transform.forward * boktoSpeed;
-        bokTo.velocity = new Vector3(x.x, bokTo.velocity.y, x.z);
+        var x = Vector3.forward + Vector3.up * bokTo.velocity.y;
+        transform.Translate(x * boktoSpeed* Time.deltaTime);
+
+        /*Vector3 x = transform.forward * boktoSpeed.;
+        bokTo.velocity = new Vector3(x.x, bokTo.velocity.y, x.z);*/
         //transform.Translate(x * boktoSpeed * Time.deltaTime);
         SwipeRL();
 

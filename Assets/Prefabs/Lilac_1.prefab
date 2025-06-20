@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6092026893095511286}
   - component: {fileID: 1736112915360904698}
   - component: {fileID: 530005147056128726}
+  - component: {fileID: 8940047330219643644}
   m_Layer: 0
   m_Name: Lilac_1
   m_TagString: Lilac
@@ -121,6 +122,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
+--- !u!114 &8940047330219643644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4197766644041722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 761b5b08f4e39954ebd747d4265c5d57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScore: 0
+  scoreText: {fileID: 0}
+  highScore: {fileID: 0}
 --- !u!1 &2311366222355369096
 GameObject:
   m_ObjectHideFlags: 0
