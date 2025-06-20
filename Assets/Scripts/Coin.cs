@@ -21,7 +21,8 @@ public class Coin : MonoBehaviour
     {
         if(gameObject.CompareTag("Lilac"))
         {
-            //have to let lilac disappear
+            gameObject.SetActive(false);
         }
+
     }
 }

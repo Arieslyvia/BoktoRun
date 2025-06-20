@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class Movement : MonoBehaviour
 {
 
-   bool Alive = true;
+    bool Alive = true;
     public Animator playeR;
     public Rigidbody bokTo;
     public float boktoSpeed;
@@ -34,8 +34,9 @@ public class Movement : MonoBehaviour
     {
 
        if (!Alive) return;
-        var x = Vector3.forward + Vector3.up * bokTo.velocity.y;
-        transform.Translate(x * boktoSpeed*Time.deltaTime);
+        Vector3 x = transform.forward * boktoSpeed;
+        bokTo.velocity = new Vector3(x.x, bokTo.velocity.y, x.z);
+        //transform.Translate(x * boktoSpeed * Time.deltaTime);
         SwipeRL();
 
         if (transform.position.y < -5)
@@ -121,16 +122,19 @@ public class Movement : MonoBehaviour
         if (collision.gameObject.CompareTag("ground"))
         {
 
-          isJumping = true;
+            isJumping = true;
             currentPath = collision.transform.parent.parent.gameObject;
 
             Debug.Log(currentPath);
 
 
         }
-       /* currentPath = collision.transform.parent.parent.gameObject;
+        if (collision.gameObject.CompareTag("obstacle"))
+        {
+            playeR.SetTrigger("die");
+            Die();
 
-        Debug.Log(currentPath);*/
+        }
     }
 
     public void Collider()
@@ -144,17 +148,6 @@ public class Movement : MonoBehaviour
         playerCollider.height = 0.8020196f;
         playerCollider.center = new Vector3(0, 0.5030588f, 0);
     }
-
-  
-  /*  void Obstacle
-    {
-        if (collision.gameObject.CompareTag("obstacle"))
-        {
-            //KillThePlayer
-            playerMovement.Die();
-        }
-    }*/
-
     public void Die()
     {
         Alive = false;
