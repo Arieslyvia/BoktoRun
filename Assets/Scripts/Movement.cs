@@ -7,14 +7,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private GameManager playerScore;
-    bool Alive = true;
     public Animator playeR;
     public Rigidbody bokTo;
     public float boktoSpeed;
     public float rotationSpeed;
     public Vector3 jump;
-
+    //public GameObject gameOver;
     bool isJumping;
 
     Vector3 startPos;
@@ -25,29 +23,39 @@ public class Movement : MonoBehaviour
 
     private void Start()
     {
-        playeR = GetComponent<Animator>();
-        bokTo = GetComponent<Rigidbody>();
+        playeR = this.GetComponent<Animator>();
+        bokTo = this.GetComponent<Rigidbody>();
        playerCollider = GetComponent<CapsuleCollider>();
     }
 
     private void Update()
     {
 
-       if (!Alive) return;
         var x = Vector3.forward + Vector3.up * bokTo.velocity.y;
-        transform.Translate(x * boktoSpeed* Time.deltaTime);
+        transform.Translate(x * boktoSpeed * Time.deltaTime);
 
-        /*Vector3 x = transform.forward * boktoSpeed.;
-        bokTo.velocity = new Vector3(x.x, bokTo.velocity.y, x.z);*/
+        /*Vector3 x = transform.forward * boktoSpeed;
+        var YVel = bokTo.velocity.y;
+        bokTo.velocity = new Vector3(x.x, YVel, x.z);*/
         //transform.Translate(x * boktoSpeed * Time.deltaTime);
         SwipeRL();
 
         if (transform.position.y < -5)
         {
-            //Die();
+            Handheld.Vibrate();
+            //gameOver.SetActive(true);
             Invoke("Restart", 2);
+
         }
     }
+
+
+    /*private void FixedUpdate()
+    {
+        Vector3 x = transform.forward * boktoSpeed;
+        var YVel = bokTo.velocity.y;
+        bokTo.MovePosition(new Vector3(x.x, transform.position.y, x.y));
+    }*/
 
     void SwipeRL()
     {
@@ -101,7 +109,8 @@ public class Movement : MonoBehaviour
         {
             if (startPos.y - lastPos.y < 0)
             {
-                if(isJumping)
+                Debug.Log("up");
+                if (isJumping)
                 {
                     isJumping = true;
                     playeR.SetTrigger("Jumping");
@@ -126,18 +135,19 @@ public class Movement : MonoBehaviour
         {
 
             isJumping = true;
-            currentPath = collision.transform.parent.parent.gameObject;
+            //currentPath = collision.transform.parent.parent.gameObject;
 
             Debug.Log(currentPath);
 
 
         }
-        if (collision.gameObject.CompareTag("obstacle"))
+        /*if (collision.gameObject.CompareTag("obstacle"))
         {
-            
+            Handheld.Vibrate();
+
             gameObject.SetActive(false);
 
-        }
+        }*/
     }
 
     public void Collider()
@@ -151,17 +161,12 @@ public class Movement : MonoBehaviour
         playerCollider.height = 0.8428271f;
         playerCollider.center = new Vector3(0, 0.5116022f, 0);
     }
-    public void Die()
-    {
-        Alive = false;
-        
-        Invoke("Restart", 2);
-
-    }
     void Restart()
     {
         StartCoroutine(DelayAction());
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        gameObject.SetActive(true);
+        //gameOver.SetActive(false);
     }
     IEnumerator DelayAction()
     {

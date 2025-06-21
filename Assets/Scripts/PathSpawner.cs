@@ -46,14 +46,14 @@ public class PathSpawner : MonoBehaviour
 
         
 
-        var flowerHolder = runningPath.transform.GetChild(2);
+        /*var flowerHolder = runningPath.transform.GetChild(2);
 
         for (int i = 0; i <flowerHolder.childCount; i ++)
         {
 
             flowerHolder.GetChild(i).gameObject.SetActive(true);
             
-        }
+        }*/
 
 
     }
