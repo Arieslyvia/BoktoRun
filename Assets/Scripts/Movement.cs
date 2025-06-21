@@ -134,8 +134,8 @@ public class Movement : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("obstacle"))
         {
-            playeR.SetTrigger("die");
-            Die();
+            
+            gameObject.SetActive(false);
 
         }
     }
@@ -148,18 +148,18 @@ public class Movement : MonoBehaviour
     }
     public void NormalCollider()
     {
-        playerCollider.height = 0.8020196f;
-        playerCollider.center = new Vector3(0, 0.5030588f, 0);
+        playerCollider.height = 0.8428271f;
+        playerCollider.center = new Vector3(0, 0.5116022f, 0);
     }
     public void Die()
     {
         Alive = false;
-        playeR.SetBool("die", true);
+        
         Invoke("Restart", 2);
+        gameObject.SetActive(true);
     }
     void Restart()
     {
-        playeR.SetBool("die", false);
         StartCoroutine(DelayAction());
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
