@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private Scores playerScore;
+    [SerializeField] private GameManager playerScore;
     bool Alive = true;
     public Animator playeR;
     public Rigidbody bokTo;
@@ -44,7 +44,8 @@ public class Movement : MonoBehaviour
 
         if (transform.position.y < -5)
         {
-            Die();
+            //Die();
+            Invoke("Restart", 2);
         }
     }
 
@@ -118,7 +119,6 @@ public class Movement : MonoBehaviour
 
         }
     }
-           
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -156,7 +156,7 @@ public class Movement : MonoBehaviour
         Alive = false;
         
         Invoke("Restart", 2);
-        gameObject.SetActive(true);
+
     }
     void Restart()
     {
