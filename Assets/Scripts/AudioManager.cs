@@ -13,6 +13,9 @@ public class AudioManager : MonoBehaviour
     public AudioClip scoreSound;
     public AudioClip playerDead;
 
+    public AudioSource audioSource;
+    public AudioSource bgaudioSource;
+    public AudioSource gameaudioSource;
     private void Awake()
     {
         if (instance == null)
@@ -59,5 +62,20 @@ public class AudioManager : MonoBehaviour
         PlaySound(playerDead);
     }
 
-
+    public void ChangeBgClip(AudioClip menuClip)
+    {
+        bgaudioSource.clip = menuClip;
+        PlayMusic(menuClip);
+    }
+    public void ChangegameClip(AudioClip gameClip)
+    {
+        gameaudioSource.clip = gameClip;
+        PlayMusic(gameClip);
+    }
+    void PlayMusic(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.loop = true;
+        audioSource.Play();
+    }
 }

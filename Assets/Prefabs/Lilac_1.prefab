@@ -121,9 +121,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerScore: 0
-  scoreText: {fileID: 0}
-  highScore: {fileID: 0}
-  speed: 0
+  manager: {fileID: 0}
+  speed: 100
 --- !u!1 &2311366222355369096
 GameObject:
   m_ObjectHideFlags: 0

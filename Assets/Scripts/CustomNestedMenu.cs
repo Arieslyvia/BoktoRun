@@ -4,64 +4,84 @@ public class CustomNestedMenu : MonoBehaviour
 {
     [Header("Panels")]
     public GameObject mainPanel;
+    public GameObject sideArrow;
     public GameObject subPanelMenuMusic;
-    public GameObject subPanelBattleMusic;
+    public GameObject subPanelGameMusic;
+    public GameObject menuPopUpMusic;
+    public GameObject gamePopUpMusic;
 
-    [Header("Animators")]
-    public Animator mainAnimator;
-    public Animator menuMusicAnimator;
-    public Animator battleMusicAnimator;
-
-    [Header("Audio")]
-    public AudioSource audioSource;
-    public AudioClip forestTheme;
-    public AudioClip nightSkyTheme;
-    public AudioClip riverTheme;
+   // [Header("Audio")]
+    
+    /*public AudioClip chasingTheHorizon;
+    public AudioClip popSong;*/
+    /*public AudioClip riverTheme;
     public AudioClip battleTheme1;
-    public AudioClip battleTheme2;
+    public AudioClip battleTheme2;*/
 
     void Start()
     {
-        ShowMainPanel();
+        
+        /*subPanelMenuMusic.SetActive(false);
+        mainPanel.SetActive(true);
+        subPanelGameMusic.SetActive(false);*/
+    }
+
+    public void OnCustomizeClicked()
+    {
+        AudioManager.instance.ButtonSound();
+        subPanelMenuMusic.SetActive(true);
+        subPanelGameMusic.SetActive(true);
+        sideArrow.SetActive(true);
+    }
+
+    public void OnCustomizedClickedClose()
+    {
+        AudioManager.instance.ButtonSound();
+        subPanelMenuMusic.SetActive(false);
+        subPanelGameMusic.SetActive(false);
+        sideArrow.SetActive(false);
+    }
+    public void OnGameMusicClicked()
+    {
+        AudioManager.instance.ButtonSound();
+        gamePopUpMusic.SetActive(true);
+
+    }
+    public void OnGameMusicClosed()
+    {
+        AudioManager.instance.ButtonSound();
+        gamePopUpMusic.SetActive(false);
+
     }
 
     public void OnMenuMusicClicked()
     {
-        PlayAnimation(mainAnimator, "PanelClose");
-        PlayAnimation(menuMusicAnimator, "PanelOpen");
-    }
+        AudioManager.instance.ButtonSound();
+        menuPopUpMusic.SetActive(true);
 
-    public void OnBattleMusicClicked()
+    }
+    public void OnMenuMusicClose()
     {
-        PlayAnimation(mainAnimator, "PanelClose");
-        PlayAnimation(battleMusicAnimator, "PanelOpen");
+        AudioManager.instance.ButtonSound();
+        menuPopUpMusic.SetActive(false);
     }
 
-    public void ShowMainPanel()
+    public void OnBgButton()
     {
-        PlayAnimation(menuMusicAnimator, "PanelClose");
-        PlayAnimation(battleMusicAnimator, "PanelClose");
-        PlayAnimation(mainAnimator, "PanelOpen");
+        AudioManager.instance.ButtonSound();
     }
 
-    void PlayAnimation(Animator animator, string triggerName)
-    {
-        if (animator != null)
-        {
-            animator.SetTrigger(triggerName);
-        }
-    }
-
-    public void PlayForestTheme() => PlayMusic(forestTheme);
-    public void PlayNightSkyTheme() => PlayMusic(nightSkyTheme);
-    public void PlayRiverTheme() => PlayMusic(riverTheme);
-    public void PlayBattleTheme1() => PlayMusic(battleTheme1);
-    public void PlayBattleTheme2() => PlayMusic(battleTheme2);
-
-    void PlayMusic(AudioClip clip)
+    /*void PlayMusic(AudioClip clip)
     {
         audioSource.clip = clip;
         audioSource.loop = true;
         audioSource.Play();
-    }
+    }*/
+    /* public void ChasingTheHorizon() => PlayMusic(chasingTheHorizon);
+     public void PopSong() => PlayMusic(popSong);*/
+    /*public void PlayRiverTheme() => PlayMusic(riverTheme);
+    public void PlayBattleTheme1() => PlayMusic(battleTheme1);
+    public void PlayBattleTheme2() => PlayMusic(battleTheme2);
+*/
+
 }

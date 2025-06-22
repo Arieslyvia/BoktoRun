@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
 
     public void MenuBt()
     {
-       AudioManager.instance.ButtonSound();
+        AudioManager.instance.ButtonSound();
         homeMenu.SetActive(true);
         pauseMenu.SetActive(false);
         gameMenu.SetActive(false);
