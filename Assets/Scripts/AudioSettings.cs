@@ -32,4 +32,19 @@ public class AudioSettings : MonoBehaviour
         AudioManager.instance.backgroundSound.volume = musicSlider.value;
     }
 
+    public void SfxChange()
+    {
+        if (AudioManager.instance.eventSound.volume <= 0.09f)
+        {
+
+            sfxIcon.GetComponent<Image>().sprite = sfxMute;
+        }
+        else
+        {
+
+            sfxIcon.GetComponent<Image>().sprite = sfxOn;
+        }
+        AudioManager.instance.eventSound.volume = sfxSlider.value;
+    }
+
 }

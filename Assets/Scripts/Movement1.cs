@@ -38,9 +38,10 @@ public class Movement : MonoBehaviour
         transform.Translate(x * boktoSpeed*Time.deltaTime);
         SwipeRL();
 
-        if (transform.position.y < -5)
+        if (transform.position.y < -1)
         {
             gameObject.SetActive(false);
+            AudioManager.instance.PlayerDeadSound();
             optionGo.SetActive(true);
             //Invoke("Restart", 2);
         }
@@ -103,6 +104,7 @@ public class Movement : MonoBehaviour
                     isJumping = true;
                     playeR.SetTrigger("Jumping");
                     bokTo.AddForce(jump, ForceMode.Impulse);
+                    AudioManager.instance.Jumpsound();
                     isJumping = false;
                     Debug.Log("up");
                 }
@@ -135,9 +137,12 @@ public class Movement : MonoBehaviour
             if(_manager.isVibrate)
             {
                 Handheld.Vibrate();
+                AudioManager.instance.BasketCollide();
+                gameObject.SetActive(false);
+                optionGo.SetActive(true);
+                
             }
-            gameObject.SetActive(false);
-            optionGo.SetActive(true);
+           
             // Invoke("Restart", 2);
         }
     }
