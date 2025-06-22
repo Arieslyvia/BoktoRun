@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Progress;
+
 public class Movement : MonoBehaviour
 {
 
@@ -158,23 +158,6 @@ public class Movement : MonoBehaviour
         playerCollider.height = 0.8020196f;
         playerCollider.center = new Vector3(0, 0.5030588f, 0);
     }
-
-
-    /*public void Die()
-    {
-        Alive = false;
-        playeR.SetBool("die", true);
-        Invoke("Restart", 2);
-    }*/
-    /*void Restart()
-    {
-        StartCoroutine(DelayAction());
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-    IEnumerator DelayAction()
-    {
-        yield return new WaitForSeconds(3f);
-    }*/
 }
 
 
