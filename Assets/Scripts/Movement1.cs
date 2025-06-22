@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Serialization;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Progress;
 public class Movement : MonoBehaviour
 {
+
+  // bool Alive = true;
     public Animator playeR;
     public Rigidbody bokTo;
     public float boktoSpeed;
     public float rotationSpeed;
     public Vector3 jump;
-    //public GameObject gameOver;
+    
     bool isJumping;
 
     Vector3 startPos;
@@ -20,42 +20,31 @@ public class Movement : MonoBehaviour
     private CapsuleCollider playerCollider;
     public GameObject currentPath;
 
+    public GameManager _manager;
+    public GameObject optionGo;
 
     private void Start()
     {
-        playeR = this.GetComponent<Animator>();
-        bokTo = this.GetComponent<Rigidbody>();
+        playeR = GetComponent<Animator>();
+        bokTo = GetComponent<Rigidbody>();
        playerCollider = GetComponent<CapsuleCollider>();
     }
 
     private void Update()
     {
 
+       //if (!Alive) return;
         var x = Vector3.forward + Vector3.up * bokTo.velocity.y;
-        transform.Translate(x * boktoSpeed * Time.deltaTime);
-
-        /*Vector3 x = transform.forward * boktoSpeed;
-        var YVel = bokTo.velocity.y;
-        bokTo.velocity = new Vector3(x.x, YVel, x.z);*/
-        //transform.Translate(x * boktoSpeed * Time.deltaTime);
+        transform.Translate(x * boktoSpeed*Time.deltaTime);
         SwipeRL();
 
         if (transform.position.y < -5)
         {
-            Handheld.Vibrate();
-            //gameOver.SetActive(true);
-            Invoke("Restart", 2);
-
+            gameObject.SetActive(false);
+            optionGo.SetActive(true);
+            //Invoke("Restart", 2);
         }
     }
-
-
-    /*private void FixedUpdate()
-    {
-        Vector3 x = transform.forward * boktoSpeed;
-        var YVel = bokTo.velocity.y;
-        bokTo.MovePosition(new Vector3(x.x, transform.position.y, x.y));
-    }*/
 
     void SwipeRL()
     {
@@ -109,8 +98,7 @@ public class Movement : MonoBehaviour
         {
             if (startPos.y - lastPos.y < 0)
             {
-                Debug.Log("up");
-                if (isJumping)
+                if(isJumping)
                 {
                     isJumping = true;
                     playeR.SetTrigger("Jumping");
@@ -128,26 +116,30 @@ public class Movement : MonoBehaviour
 
         }
     }
+           
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("ground"))
         {
 
-            isJumping = true;
-            //currentPath = collision.transform.parent.parent.gameObject;
+          isJumping = true;
+            currentPath = collision.transform.parent.parent.gameObject;
 
             Debug.Log(currentPath);
 
 
         }
-        /*if (collision.gameObject.CompareTag("obstacle"))
+        if (collision.gameObject.CompareTag("obstacle"))
         {
-            Handheld.Vibrate();
-
+            if(_manager.isVibrate)
+            {
+                Handheld.Vibrate();
+            }
             gameObject.SetActive(false);
-
-        }*/
+            optionGo.SetActive(true);
+            // Invoke("Restart", 2);
+        }
     }
 
     public void Collider()
@@ -158,20 +150,26 @@ public class Movement : MonoBehaviour
     }
     public void NormalCollider()
     {
-        playerCollider.height = 0.8428271f;
-        playerCollider.center = new Vector3(0, 0.5116022f, 0);
+        playerCollider.height = 0.8020196f;
+        playerCollider.center = new Vector3(0, 0.5030588f, 0);
     }
-    void Restart()
+
+
+    /*public void Die()
+    {
+        Alive = false;
+        playeR.SetBool("die", true);
+        Invoke("Restart", 2);
+    }*/
+    /*void Restart()
     {
         StartCoroutine(DelayAction());
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        gameObject.SetActive(true);
-        //gameOver.SetActive(false);
     }
     IEnumerator DelayAction()
     {
         yield return new WaitForSeconds(3f);
-    }
+    }*/
 }
 
 
