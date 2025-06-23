@@ -12,10 +12,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip scoreSound;
     public AudioClip playerDead;
-
-    public AudioSource audioSource;
-    public AudioSource bgaudioSource;
-    public AudioSource gameaudioSource;
+    public AudioClip gamePlayBgSound;
+    //public AudioSource gameaudioSource;
     private void Awake()
     {
         if (instance == null)
@@ -64,18 +62,31 @@ public class AudioManager : MonoBehaviour
 
     public void ChangeBgClip(AudioClip menuClip)
     {
-        bgaudioSource.clip = menuClip;
-        PlayMusic(menuClip);
+        //backgroundSound.enabled = true;
+        backgroundSound.clip = menuClip;
+        //backgroundSound.enabled = false;
+        //PlayMusic(menuClip);
     }
+
+    //For Main Menu Choosing the music and playing
     public void ChangegameClip(AudioClip gameClip)
     {
-        gameaudioSource.clip = gameClip;
-        PlayMusic(gameClip);
+        //gameaudioSource.enabled = false;
+        backgroundSound.enabled = false;
+        backgroundSound.clip = gameClip;
+        backgroundSound.enabled = true;
+        backgroundSound.Play();
+        //PlayMusic(gameClip);
     }
-    void PlayMusic(AudioClip clip)
+
+    //Game music(Only Choosing)
+    public void GamePlayMusic()
     {
-        audioSource.clip = clip;
-        audioSource.loop = true;
-        audioSource.Play();
+        /*backgroundSound.enabled = false;
+        backgroundSound.clip = gamePlayBgSound;
+        backgroundSound.enabled = true;*/
+        backgroundSound.enabled = false;
+        backgroundSound.clip = gamePlayBgSound;
+        backgroundSound.enabled = true;
     }
 }

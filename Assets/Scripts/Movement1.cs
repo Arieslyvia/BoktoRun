@@ -20,7 +20,7 @@ public class Movement : MonoBehaviour
     private CapsuleCollider playerCollider;
     public GameObject currentPath;
 
-    public GameManager _manager;
+    public AudioSettings _audioS;
     public GameObject optionGo;
 
     private void Start()
@@ -134,15 +134,14 @@ public class Movement : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("obstacle"))
         {
-            if(_manager.isVibrate)
+            if(_audioS.isVibrate)
             {
-                Handheld.Vibrate();
-                AudioManager.instance.BasketCollide();
-                gameObject.SetActive(false);
-                optionGo.SetActive(true);
+               Handheld.Vibrate();
+               AudioManager.instance.BasketCollide();
                 
             }
-           
+            gameObject.SetActive(false);
+            optionGo.SetActive(true);
             // Invoke("Restart", 2);
         }
     }

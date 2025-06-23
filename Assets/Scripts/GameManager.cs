@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -18,13 +15,11 @@ public class GameManager : MonoBehaviour
     public GameObject settingMenu;
     public GameObject pauseMenu;
     public GameObject gameMenu;
-    public GameObject vibrationIcon;
-    public GameObject noVibration;
     public GameObject optionGo;
     public GameObject restartBt;
     public GameObject menuBt;
 
-    public bool isVibrate;
+    
     public static bool isRestarting;
 
     private void Start()
@@ -51,6 +46,9 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         AudioManager.instance.ButtonSound();
+        AudioManager.instance.GamePlayMusic();
+        //AudioManager.instance.backgroundSound.enabled = false;
+        AudioManager.instance.backgroundSound.Play(); //Only Plays At Start
         Time.timeScale = 1;
         homeMenu.SetActive(false);
         gameMenu.SetActive(true);
@@ -79,26 +77,11 @@ public class GameManager : MonoBehaviour
         homeMenu.SetActive(true);
         settingMenu.SetActive(false);
     }
-
-    public void OkayIcon()
-    {
-        isVibrate = true;
-       AudioManager.instance.ButtonSound();
-        vibrationIcon.SetActive(true);
-        noVibration.SetActive(false);
-    }
-
-    public void CancelIcon()
-    {
-        isVibrate = false;
-       AudioManager.instance.ButtonSound();
-        vibrationIcon.SetActive(false);
-        noVibration.SetActive(true);
-    }
-
     public void MenuBt()
     {
         AudioManager.instance.ButtonSound();
+        //AudioManager.instance.backgroundSound.enabled = false;
+        AudioManager.instance.backgroundSound.enabled = true;    
         homeMenu.SetActive(true);
         pauseMenu.SetActive(false);
         gameMenu.SetActive(false);
