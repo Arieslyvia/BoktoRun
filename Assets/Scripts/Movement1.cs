@@ -22,6 +22,8 @@ public class Movement : MonoBehaviour
 
     public GameObject optionGo;
 
+    private int playerHealth = 2;
+
     private void Start()
     {
         playeR = GetComponent<Animator>();
@@ -32,9 +34,9 @@ public class Movement : MonoBehaviour
     private void Update()
     {
 
-       //if (!Alive) return;
-        var x = Vector3.forward + Vector3.up * bokTo.velocity.y;
-        transform.Translate(x * boktoSpeed*Time.deltaTime);
+        
+        Vector3 horizontalVel = transform.forward * boktoSpeed;
+        bokTo.velocity = new Vector3(horizontalVel.x, bokTo.velocity.y, horizontalVel.z);
         SwipeRL();
 
         if (transform.position.y < -1)
@@ -42,7 +44,7 @@ public class Movement : MonoBehaviour
             gameObject.SetActive(false);
             AudioManager.instance.PlayerDeadSound();
             optionGo.SetActive(true);
-            //Invoke("Restart", 2);
+            
         }
     }
 
@@ -76,9 +78,6 @@ public class Movement : MonoBehaviour
             {
                 playeR.transform.Rotate(new Vector3(0, 90, 0));
 
-                //playeR.transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + 90f, 0);
-                //transform.Rotate(new Vector3(0f, 90f, 0f));
-                //bokTo.velocity = new Vector3(boktoSpeed, bokTo.velocity.y, 0);
                 playeR.SetFloat("Running", Mathf.Abs(xDisplace));
                 Debug.Log("Swipe Right");
 
@@ -86,9 +85,7 @@ public class Movement : MonoBehaviour
             else
             {
                 playeR.transform.Rotate(new Vector3(0, -90, 0));
-                //playeR.transform.eulerAngles = new Vector3(0, transform.eulerAngles.y -90f, 0);
-                //transform.Rotate(new Vector3(0f, 90f, 0f));
-                //bokTo.velocity = new Vector3(boktoSpeed, bokTo.velocity.y, 0);
+                
                 playeR.SetFloat("Running", Mathf.Abs(xDisplace));
                 Debug.Log("Swipe Left");
 
@@ -117,7 +114,20 @@ public class Movement : MonoBehaviour
 
         }
     }
-           
+    IEnumerator playerdead()
+    {
+        playerHealth -= 1;
+        yield return new WaitForSeconds(5);
+        playerHealth = 2;
+    }
+    IEnumerator gameoverstate()
+    {
+        gameObject.SetActive(false);
+        yield return new WaitForSeconds(1);
+        optionGo.SetActive(true);
+
+    }
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -141,7 +151,20 @@ public class Movement : MonoBehaviour
             }
             gameObject.SetActive(false);
             optionGo.SetActive(true);
-            // Invoke("Restart", 2);
+           
+        }
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+            StartCoroutine(gameoverstate());
+        }
+        if (collision.gameObject.CompareTag("barrel"))
+        {
+            StartCoroutine(playerdead());
+            if (playerHealth <= 0)
+            {
+                
+                StartCoroutine(gameoverstate());
+            }
         }
     }
 

@@ -25,21 +25,29 @@ public class AudioSetting : MonoBehaviour
 
     public Button firstMenuButton;
     public Button secondMenuButton;
+    public Button thirdMenuButton;
 
     public Button firstGameButton;
     public Button secondGameButton;
+    public Button thirdGameButton;
 
     public AudioClip plasticFrog;
     public AudioClip chillRabbit;
+    public AudioClip moodyTrap;
     public AudioClip chasingTheHorizon;
     public AudioClip popSong;
+    public AudioClip popSong2;
+
 
     private void Start()
     {
         firstMenuButton.onClick.AddListener(() => AudioManager.instance.ChangeBgClip(plasticFrog));
         secondMenuButton.onClick.AddListener(() => AudioManager.instance.ChangeBgClip(chillRabbit));
+        thirdMenuButton.onClick.AddListener(() => AudioManager.instance.ChangeBgClip(moodyTrap));
+
         firstGameButton.onClick.AddListener(() => AudioManager.instance.ChangegameClip(chasingTheHorizon));
         secondGameButton.onClick.AddListener(() => AudioManager.instance.ChangegameClip(popSong));
+        thirdGameButton.onClick.AddListener(() => AudioManager.instance.ChangegameClip(popSong2));
 
         if (isQuit == true)
         {
