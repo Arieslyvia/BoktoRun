@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
             settingMenu.SetActive(false);
             pauseMenu.SetActive(false);
             gameMenu.SetActive(true);
+            
 
         }
         else
@@ -38,6 +39,10 @@ public class GameManager : MonoBehaviour
             settingMenu.SetActive(false);
             pauseMenu.SetActive(false);
             gameMenu.SetActive(false);
+            AudioManager.instance.backgroundSound.volume = AudioSetting.musicValue;
+            AudioManager.instance.eventSound.volume = AudioSetting.sfxValue;
+            AudioManager.instance.MenuBgSound();
+            AudioManager.instance.backgroundSound.Play();
 
         }
         savedScore = PlayerPrefs.GetInt("HighScore");
@@ -47,7 +52,7 @@ public class GameManager : MonoBehaviour
     {
         AudioManager.instance.ButtonSound();
         AudioManager.instance.GamePlayMusic();
-        //AudioManager.instance.backgroundSound.enabled = false;
+        AudioManager.instance.ChangegameClip(AudioManager.instance.gamePlayBgSound);
         AudioManager.instance.backgroundSound.Play(); //Only Plays At Start
         Time.timeScale = 1;
         homeMenu.SetActive(false);

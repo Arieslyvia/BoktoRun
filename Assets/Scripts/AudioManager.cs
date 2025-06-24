@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
+
     public AudioSource eventSound;
     public AudioSource backgroundSound;
+
+    public AudioClip mainMenuClip;
     public AudioClip buttonClick;
     public AudioClip basketCollide;
     public AudioClip jumpSound;
@@ -28,6 +32,8 @@ public class AudioManager : MonoBehaviour
         }
 
     }
+
+
 
 
     public void PlaySound(AudioClip sounds)
@@ -62,21 +68,17 @@ public class AudioManager : MonoBehaviour
 
     public void ChangeBgClip(AudioClip menuClip)
     {
-        //backgroundSound.enabled = true;
         backgroundSound.clip = menuClip;
-        //backgroundSound.enabled = false;
-        //PlayMusic(menuClip);
+        backgroundSound.Play();
+        mainMenuClip = menuClip;
     }
 
     //For Main Menu Choosing the music and playing
     public void ChangegameClip(AudioClip gameClip)
     {
-        //gameaudioSource.enabled = false;
-        backgroundSound.enabled = false;
-        backgroundSound.clip = gameClip;
-        backgroundSound.enabled = true;
-        backgroundSound.Play();
-        //PlayMusic(gameClip);
+        //backgroundSound.clip = gameClip;
+        //backgroundSound.Play();
+        gamePlayBgSound = gameClip;
     }
 
     //Game music(Only Choosing)
@@ -87,6 +89,13 @@ public class AudioManager : MonoBehaviour
         backgroundSound.enabled = true;*/
         backgroundSound.enabled = false;
         backgroundSound.clip = gamePlayBgSound;
+        backgroundSound.enabled = true;
+    }
+
+    public void MenuBgSound()
+    {
+        backgroundSound.enabled = false;
+        backgroundSound.clip = mainMenuClip;
         backgroundSound.enabled = true;
     }
 }
