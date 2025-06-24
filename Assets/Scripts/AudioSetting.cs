@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,20 +8,65 @@ public class AudioSetting : MonoBehaviour
 {
     public GameObject musicOn;
     public GameObject musicOff;
-    public static float musicValue;
+
+    public static bool isQuit;
 
     public GameObject sfxOn;
     public GameObject sfxOff;
-    public static float sfxValue;
-
+    
     public Slider musicSlider;
     public Slider sfxSlider;
 
+    public Sprite vibration;
+    public Sprite vibrationOff;
+    public GameObject vibrationButton;
+    public static int vibrationState;
+    public static bool isVibrating = true;
+
+    public Button firstMenuButton;
+    public Button secondMenuButton;
+
+    public Button firstGameButton;
+    public Button secondGameButton;
+
+    public AudioClip plasticFrog;
+    public AudioClip chillRabbit;
+    public AudioClip chasingTheHorizon;
+    public AudioClip popSong;
+
     private void Start()
     {
-       /* musicSlider.value = 1;
-        sfxSlider.value = 1;*/
+        firstMenuButton.onClick.AddListener(() => AudioManager.instance.ChangeBgClip(plasticFrog));
+        secondMenuButton.onClick.AddListener(() => AudioManager.instance.ChangeBgClip(chillRabbit));
+        firstGameButton.onClick.AddListener(() => AudioManager.instance.ChangegameClip(chasingTheHorizon));
+        secondGameButton.onClick.AddListener(() => AudioManager.instance.ChangegameClip(popSong));
+
+        if (isQuit == true)
+        {
+            Debug.Log(AudioManager.musicValue);
+            Debug.Log(AudioManager.sfxValue);
+            AudioManager.instance.backgroundSound.volume = AudioManager.musicValue;
+            musicSlider.value = AudioManager.musicValue;
+            AudioManager.instance.eventSound.volume = AudioManager.sfxValue;
+            sfxSlider.value = AudioManager.sfxValue;
+        }
+        else
+        {
+            AudioManager.instance.backgroundSound.volume = 1;
+            AudioManager.instance.eventSound.volume = 1;
+        }
+        if (vibrationState == 0)
+        {
+            vibrationButton.GetComponent<Image>().sprite = vibration;
+        }
+        else
+        {
+            vibrationButton.GetComponent<Image>().sprite = vibrationOff;
+        }
     }
+
+
+
 
     public void musicVolChange()
     {
@@ -35,7 +81,7 @@ public class AudioSetting : MonoBehaviour
             musicOn.SetActive(true);
             musicOff.SetActive(false);
         }
-        musicValue = musicSlider.value;
+        AudioManager.musicValue = musicSlider.value;
     }
 
     public void sfxVolChange()
@@ -51,6 +97,25 @@ public class AudioSetting : MonoBehaviour
             sfxOn.SetActive(true);
             sfxOff.SetActive(false);
         }
-        sfxValue = sfxSlider.value;
+        AudioManager.sfxValue = sfxSlider.value;
     }
+
+    public void VibrationImage()
+    {
+        AudioManager.instance.ButtonSound();
+        if(vibrationButton.GetComponent<Image>().sprite == vibration)
+        {
+            vibrationState = 1;
+            isVibrating = false;
+            vibrationButton.GetComponent<Image>().sprite = vibrationOff;
+        }
+        else
+        {
+            vibrationState = 0;
+            isVibrating = true;
+            vibrationButton.GetComponent<Image>().sprite = vibration;
+        }
+        
+    }
+    
 }

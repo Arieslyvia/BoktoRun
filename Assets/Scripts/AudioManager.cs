@@ -10,6 +10,12 @@ public class AudioManager : MonoBehaviour
     public AudioSource eventSound;
     public AudioSource backgroundSound;
 
+    public static float sfxValue;
+    public static float musicValue;
+
+    
+
+
     public AudioClip mainMenuClip;
     public AudioClip buttonClick;
     public AudioClip basketCollide;
@@ -17,9 +23,11 @@ public class AudioManager : MonoBehaviour
     public AudioClip scoreSound;
     public AudioClip playerDead;
     public AudioClip gamePlayBgSound;
+
     //public AudioSource gameaudioSource;
     private void Awake()
     {
+        //instance = this;
         if (instance == null)
         {
             instance = this;
@@ -32,7 +40,6 @@ public class AudioManager : MonoBehaviour
         }
 
     }
-
 
 
 

@@ -20,7 +20,6 @@ public class Movement : MonoBehaviour
     private CapsuleCollider playerCollider;
     public GameObject currentPath;
 
-    public AudioSettings _audioS;
     public GameObject optionGo;
 
     private void Start()
@@ -109,7 +108,7 @@ public class Movement : MonoBehaviour
                     Debug.Log("up");
                 }
             }
-            else
+            else if (startPos.y - lastPos.y > 0)
             {
                 Debug.Log("down");
                 playeR.SetTrigger("Slide");
@@ -134,7 +133,7 @@ public class Movement : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("obstacle"))
         {
-            if(_audioS.isVibrate)
+            if(AudioSetting.isVibrating)
             {
                Handheld.Vibrate();
                AudioManager.instance.BasketCollide();

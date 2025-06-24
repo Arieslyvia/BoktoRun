@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
             gameMenu.SetActive(true);
             
 
+
         }
         else
         {
@@ -39,8 +40,6 @@ public class GameManager : MonoBehaviour
             settingMenu.SetActive(false);
             pauseMenu.SetActive(false);
             gameMenu.SetActive(false);
-            AudioManager.instance.backgroundSound.volume = AudioSetting.musicValue;
-            AudioManager.instance.eventSound.volume = AudioSetting.sfxValue;
             AudioManager.instance.MenuBgSound();
             AudioManager.instance.backgroundSound.Play();
 
@@ -118,7 +117,8 @@ public class GameManager : MonoBehaviour
     public void GoHome()
     {
         isRestarting = false;
-       AudioManager.instance.ButtonSound();
+        AudioManager.instance.ButtonSound();
+        AudioSetting.isQuit = true;
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
