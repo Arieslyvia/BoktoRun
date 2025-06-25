@@ -13,9 +13,6 @@ public class AudioManager : MonoBehaviour
     public static float sfxValue;
     public static float musicValue;
 
-    
-
-
     public AudioClip mainMenuClip;
     public AudioClip buttonClick;
     public AudioClip basketCollide;

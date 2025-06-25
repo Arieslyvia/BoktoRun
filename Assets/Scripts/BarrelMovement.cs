@@ -21,7 +21,7 @@ public class BarrelMovement : MonoBehaviour
 
     public GameObject currentPath;
     public GameObject reStartUI;
-
+    public float gyroSensitivity;
 
 
 
@@ -31,8 +31,6 @@ public class BarrelMovement : MonoBehaviour
     {
 
         boktoRB = this.GetComponent<Rigidbody>();
-
-
 
     }
 
@@ -131,5 +129,15 @@ public class BarrelMovement : MonoBehaviour
             reStartUI.SetActive(true);
         }
 
+    }
+
+    void GyroMovement()
+    {
+        float gyroX = Input.acceleration.x; // Use Input.gyro.gravity.x if needed
+        float moveAmount = gyroX * gyroSensitivity;
+
+        Vector3 targetPosition = transform.position + Vector3.right * moveAmount * Time.deltaTime;
+
+        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 5f);
     }
 }

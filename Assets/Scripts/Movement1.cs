@@ -21,20 +21,29 @@ public class Movement : MonoBehaviour
     public GameObject currentPath;
 
     public GameObject optionGo;
+    public float gyroSensitivity;
 
     public int playerHealth = 2;
+    public GameObject fullHealth;
+    public GameObject halfHealth;
+    public GameObject emptyHealth;
+
+   
 
     private void Start()
     {
         playeR = GetComponent<Animator>();
         bokTo = GetComponent<Rigidbody>();
        playerCollider = GetComponent<CapsuleCollider>();
+
+        
     }
 
     private void Update()
     {
+        GyroMovement();
 
-        
+
         Vector3 horizontalVel = transform.forward * boktoSpeed;
         bokTo.velocity = new Vector3(horizontalVel.x, bokTo.velocity.y, horizontalVel.z);
         SwipeRL();
@@ -117,6 +126,7 @@ public class Movement : MonoBehaviour
     IEnumerator playerdead()
     {
         playerHealth -= 1;
+        halfHealth.SetActive(true);
         yield return new WaitForSeconds(5);
         playerHealth = 2;
     }
@@ -126,6 +136,8 @@ public class Movement : MonoBehaviour
 
         
         optionGo.SetActive(true);
+        emptyHealth.SetActive(true);
+        fullHealth.SetActive(false);
         gameObject.SetActive(false);
        
 
@@ -184,6 +196,17 @@ public class Movement : MonoBehaviour
         playerCollider.height = 0.8020196f;
         playerCollider.center = new Vector3(0, 0.5030588f, 0);
     }
+
+    void GyroMovement()
+    {
+        float gyroX = Input.acceleration.x; // Use Input.gyro.gravity.x if needed
+        float moveAmount = gyroX * gyroSensitivity;
+
+        Vector3 targetPosition = transform.position + transform.right * moveAmount * Time.smoothDeltaTime;
+
+        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 5f);
+    }
+
 }
 
 

@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     public GameObject restartBt;
     public GameObject menuBt;
 
+    public GameObject infoPopUp;
+    public GameObject infoIcon;
+    public GameObject crossButton;
     
     public static bool isRestarting;
 
@@ -121,6 +124,15 @@ public class GameManager : MonoBehaviour
         AudioSetting.isQuit = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void InfoClick()
+    {
+        infoPopUp.SetActive(true);
+    }
+    public void CrossButton()
+    {
+        infoPopUp.SetActive(false);
     }
 
     public void IncrementScore()
