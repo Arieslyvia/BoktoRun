@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
     {
         isRestarting = false;
         AudioManager.instance.ButtonSound();
-        AudioSetting.isQuit = true;
+        AudioSetting.isQuit = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

@@ -51,8 +51,8 @@ public class AudioSetting : MonoBehaviour
 
         if (isQuit == true)
         {
-            Debug.Log(AudioManager.musicValue);
-            Debug.Log(AudioManager.sfxValue);
+           // Debug.Log(AudioManager.musicValue);
+            //Debug.Log(AudioManager.sfxValue);
             AudioManager.instance.backgroundSound.volume = AudioManager.musicValue;
             musicSlider.value = AudioManager.musicValue;
             AudioManager.instance.eventSound.volume = AudioManager.sfxValue;
@@ -72,8 +72,6 @@ public class AudioSetting : MonoBehaviour
             vibrationButton.GetComponent<Image>().sprite = vibrationOff;
         }
     }
-
-
 
 
     public void musicVolChange()
