@@ -25,7 +25,9 @@ public class Coin : MonoBehaviour
         if (gameObject.CompareTag("Lilac"))
         {
             gameObject.SetActive(false);
-           
+            AudioManager.instance.ScoreSound();
+
+
         }
         manager.GetComponent<GameManager>().IncrementScore();
     }

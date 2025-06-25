@@ -16,7 +16,7 @@ public class PathSpawner : MonoBehaviour
 
     private void Start()
     {
-       //paths[4].transform.position = spawnPoint.transform.position;
+     //  paths[5].transform.position = spawnPoint.transform.position;
     }
 
     private void Update()
