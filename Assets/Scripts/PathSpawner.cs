@@ -16,16 +16,16 @@ public class PathSpawner : MonoBehaviour
 
     private void Start()
     {
-       paths[1].transform.position = spawnPoint.transform.position;
+     //  paths[5].transform.position = spawnPoint.transform.position;
     }
 
     private void Update()
     {
-       /* if (runningPath == player.currentPath)
+        if (runningPath == player.currentPath)
         {
             return;
         }
-        PathChanger();*/
+        PathChanger();
     }
 
     public void PathChanger()

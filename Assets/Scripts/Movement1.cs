@@ -22,7 +22,7 @@ public class Movement : MonoBehaviour
 
     public GameObject optionGo;
 
-    private int playerHealth = 2;
+    public int playerHealth = 2;
 
     private void Start()
     {
@@ -120,11 +120,14 @@ public class Movement : MonoBehaviour
         yield return new WaitForSeconds(5);
         playerHealth = 2;
     }
-    IEnumerator gameoverstate()
+    void gameoverstate()
     {
-        gameObject.SetActive(false);
-        yield return new WaitForSeconds(1);
+       
+
+        
         optionGo.SetActive(true);
+        gameObject.SetActive(false);
+       
 
     }
 
@@ -155,15 +158,17 @@ public class Movement : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("enemy"))
         {
-            StartCoroutine(gameoverstate());
+            gameoverstate();
+            
         }
         if (collision.gameObject.CompareTag("barrel"))
         {
             StartCoroutine(playerdead());
             if (playerHealth <= 0)
             {
-                
-                StartCoroutine(gameoverstate());
+            
+                gameoverstate();
+
             }
         }
     }
